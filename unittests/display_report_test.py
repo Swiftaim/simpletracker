@@ -8,8 +8,8 @@
 # |2013-09-01 10:00:00UTC |/contact.html |12345 |
 # |2013-09-01 11:00:00UTC |/contact.html |12347 |
 #
-# When I view the report for the time range 2013-09-01 09:00:00 - 10:59:59
-# The the report should contain the data:
+# When the report is run for the time range 2013-09-01 09:00:00 - 10:59:59
+# the report should contain the data:
 # |url           |page views |visitors|
 # |/contact.html |3          |2       |
 
