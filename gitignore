@@ -1,3 +1,5 @@
 __pycache__/
 reporting/__pycache__/
 unittests/__pycache__/
+server/__pycache__/
+server/simple_tracker.log
