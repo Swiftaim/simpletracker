@@ -5,9 +5,24 @@ class DisplayReport():
 	Provides methods for producing reports on tracking data.
 	"""
 
+	def run_basic_report(self, from_time, to_time):
+		"""Run the basic report on the server/simple_tracker.log file"""
+		
+		file = open('../server/simple_tracker.log')
+		raw_data = []
+		for line in file:
+			columns = line.split(' ')
+			row = {}
+			row['timestamp'] = '{} {}UTC'.format(columns[0], columns[1])
+			row['url'] = columns[2]
+			row['userid'] = columns[3]
+			raw_data.append(row)
+
+		report = self.generate_basic_report(from_time, to_time, raw_data)
+
 	def generate_basic_report(self, from_time, to_time, raw_data):
 		"""
-		Runs the basic report on the supplied data.
+		Generates the basic report for the supplied data.
 		
 		Arguments:
 		from_time -- start time of the reporting interval
