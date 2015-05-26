@@ -89,6 +89,10 @@ class DisplayReportTest(unittest.TestCase):
 		result = display_report.within_time_interval(from_time, to_time, date_after)
 		assert(not bool(result))
 
+		# Test without timestamps (from beginning to end).
+		result = display_report.within_time_interval(None, None, time_middle)
+		assert(bool(result))
+
 
 	def tearDown(self):
 		pass
