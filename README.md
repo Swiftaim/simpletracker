@@ -1,5 +1,7 @@
 # simpletracker
-A simple tracker demo written in Python 3.4
+A simple tracker demo written in Python 3.4.
+
+The server tracks client browser activity by placing a cookie in the browser and logging every page access for each cookie.
 
 Running the server
 ==================
