@@ -5,10 +5,10 @@ class DisplayReport():
 	Provides methods for producing reports on tracking data.
 	"""
 
-	def run_basic_report(self, from_time, to_time):
+	def run_basic_report(self, from_time, to_time, file_name):
 		"""Run the basic report on the server/simple_tracker.log file"""
 		
-		file = open('../server/simple_tracker.log')
+		file = open(file_name)
 		raw_data = []
 		for line in file:
 			columns = line.split(' ')
@@ -19,6 +19,7 @@ class DisplayReport():
 			raw_data.append(row)
 
 		report = self.generate_basic_report(from_time, to_time, raw_data)
+		return report
 
 	def generate_basic_report(self, from_time, to_time, raw_data):
 		"""
@@ -37,10 +38,6 @@ class DisplayReport():
 		report = []
 		for key, value in structured_data.items():
 			report.append([key, len(value), len(set(value))])
-
-		# Finally print the report using a pretty print method.
-		header = ['url', 'page views', 'visitors']
-		self.pretty_print_report(report, header)
 
 		# Return the actual report data for further processing.
 		return report
@@ -68,6 +65,14 @@ class DisplayReport():
 
 	def within_time_interval(self, from_time, to_time, time):
 		"""Check wether a time is within a time interval or not"""
+		if from_time == None:
+			if to_time == None:
+				return True
+			else:
+				return bool(time <= to_time)
+		else:
+			if to_time == None:
+				return bool(time >= from_time)
 
 		return bool((time >= from_time) and (time <= to_time))
 	
@@ -82,3 +87,30 @@ class DisplayReport():
 			for column in row:
 				print('|{:<15}'.format(column), end='')
 			print('|')
+
+	def pretty_html_report(self, report, header):
+		"""Generates an html version of the report"""
+		# Use a nice style for the table view
+
+		# Build an html table from the report and it's header
+		html_table = "<table id=\"t01\">"
+		html_table += "<caption><b>Tracking Statistics</b></caption>"
+		# Generate the html table header
+		html_table_header = "<tr>"
+		for item in header:
+			html_table_header += "<th>{}</th>".format(item)
+		html_table_header += "</tr>"
+
+		# Generate the html data rows
+		html_table_rows = ""
+		for row in report:
+			html_table_rows += "<tr>"
+			for column in row:
+				html_table_rows += "<td>{}</td>".format(column)
+			html_table_rows += "</tr>"
+		
+		html_table += html_table_header
+		html_table += html_table_rows
+		html_table += "</table>"
+
+		return html_table
